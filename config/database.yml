@@ -21,6 +21,7 @@ test:
   database: db/test.sqlite3
 
 production:
+  database: ajax_sample_production
   adapter: mysql2
   encoding:  utf8
   pool: 5
