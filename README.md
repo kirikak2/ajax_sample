@@ -7,6 +7,12 @@ $ curl -L https://github.com/docker/compose/releases/download/1.7.1/docker-compo
 $ chmod +x /usr/local/bin/docker-compose
 ````
 
+## docker-composeのコンテナ内でSECRET_KEY_BASEを生成する
+````
+# sudo docker run kirika/ajaxsample_web rails secret
+d8c2b0eb8773db8d913a06c3127075373932328c3b9e68ccadaae2b8de1a0aa5b7d680684db2f75d0792316c5e592256e34f67afb226ae78f567653af31f2043
+````
+
 ## docker-compose.ymlを作成
 ````
 version: '2'
@@ -32,6 +38,7 @@ services:
     environment:
       DB_PASSWORD: password
       DB_HOST: mysql
+      SECRET_KEY_BASE: (前の手順で作成したSECRETを入れる)
     links:
       - mysql
 ````
@@ -44,52 +51,6 @@ services:
 ````
 
 ## docker-composeを起動
-````
-sudo /usr/local/bin/docker-compose up &
-````
-
-## docker-composeのコンテナ内でSECRET_KEY_BASEを生成する
-````
-# sudo /usr/local/bin/docker-compose exec web rails secret
-d8c2b0eb8773db8d913a06c3127075373932328c3b9e68ccadaae2b8de1a0aa5b7d680684db2f75d0792316c5e592256e34f67afb226ae78f567653af31f2043
-````
-
-## 立ち上げたコンテナを一旦終了する
-````
-sudo /usr/local/bin/docker-compose down &
-````
-
-## 取得したSECRET_KEY_BASEをdocker-compose.ymlの環境変数として登録する
-````
-version: '2'
-services:
-  data:
-    image: busybox
-    volumes:
-      - /var/lib/mysql
-  mysql:
-    image: mysql:5.7
-    ports:
-      - "3306:3306"
-    volumes_from:
-      - data
-    environment:
-      MYSQL_ROOT_PASSWORD: password
-  web:
-    image: kirika/ajaxsample_web
-    volumes:
-      - .:/myapp
-    ports:
-      - "3000:3000"
-    environment:
-      DB_PASSWORD: password
-      DB_HOST: mysql
-      SECRET_KEY_BASE: d8c2b0eb8773db8d913a06c3127075373932328c3b9e68ccadaae2b8de1a0aa5b7d680684db2f75d0792316c5e592256e34f67afb226ae78f567653af31f2043
-    links:
-      - mysql
-````
-
-## 再度docker-composeを立ち上げなおす
 ````
 sudo /usr/local/bin/docker-compose up &
 ````
