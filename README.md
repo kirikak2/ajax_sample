@@ -26,7 +26,7 @@ GET /addresses.json
 #### Arguments
 
 |パラメータ名|意味|呼び出し例|
-|-|-|-|
+|------------|----|----------|
 |columns|表示するカラムを呼び出す、カンマ区切りで複数指定|/addresses.json?columns=name,age|
 |per|１ページあたりの表示件数|/addresses.json?per=10|
 |page|ページ指定（perを指定した時のみ有効）1から開始|/addresses.json?per=10&page=2|
