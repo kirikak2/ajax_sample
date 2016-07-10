@@ -75,7 +75,7 @@ $ exit
 ## データファイルをダウンロードし、mysqlにインポートする
 ````
 $ wget https://raw.githubusercontent.com/kirikak2/ajax_sample/master/db/personal_infomation_500.csv
-$ mysql -u root -p -h 127.0.0.1 ajax_sample_production
+$ mysql -u root -p -h 127.0.0.1 -P 3306 ajax_sample_production
 Enter password: (mysqlのパスワードはpassword)
 Reading table information for completion of table and column names
 You can turn off this feature to get a quicker startup with -A
@@ -92,13 +92,15 @@ owners.
 
 Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
 
-mysql> load data local infile "/tmp/personal_information_500.csv" into table addresses fields terminated by ',';
+mysql> load data local infile "/tmp/personal_infomation_500.csv" into table addresses fields terminated by ',';
 Query OK, 500 rows affected, 6500 warnings (0.02 sec)
 Records: 500  Deleted: 0  Skipped: 0  Warnings: 6500
 
 mysql> exit
 Bye
 ````
+
+* `-P`オプションでポート番号を指定します。バインドするポートを変更した場合は、3306から変更してください。
 
 ## 外部からURLを呼び出し、正しく応答が返ることを確認する
 ````
