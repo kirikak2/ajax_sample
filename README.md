@@ -17,7 +17,7 @@ d8c2b0eb8773db8d913a06c3127075373932328c3b9e68ccadaae2b8de1a0aa5b7d680684db2f75d
 
 ## 作業用のディレクトリを作成
 ````
-mkdir tmp && cd tmp
+mkdir workdir && cd workdir
 ````
 * 同じマシンを利用しているユーザと被らないようにしてください。
 
