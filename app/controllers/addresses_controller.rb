@@ -19,7 +19,7 @@ class AddressesController < ApplicationController
     conditions = nil
     conditions = join_condition(conditions, :name, :string, condition)
     conditions = join_condition(conditions, :name_kana, :string, condition)
-    conditions = join_condition(conditions, :email, :string, condition)
+    conditions = join_condition(conditions, :mail, :string, condition)
     conditions = join_condition(conditions, :address1, :string, condition)
     conditions = join_condition(conditions, :age, :integer, condition)
 
