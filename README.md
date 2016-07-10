@@ -13,6 +13,13 @@ $ exit
 # sudo docker run kirika/ajaxsample_web rails secret
 d8c2b0eb8773db8d913a06c3127075373932328c3b9e68ccadaae2b8de1a0aa5b7d680684db2f75d0792316c5e592256e34f67afb226ae78f567653af31f2043
 ````
+* 実行回数に応じて他の人と同じ値が出てくるため、何回か実行してください。
+
+## 作業用のディレクトリを作成
+````
+mkdir tmp && cd tmp
+````
+* 同じマシンを利用しているユーザと被らないようにしてください。
 
 ## docker-compose.ymlを作成
 ````
@@ -33,7 +40,7 @@ services:
   web:
     image: kirika/ajaxsample_web
     volumes:
-      - .:/myapp
+      - tmp:/myapp/tmp
     ports:
       - "3000:3000"
     environment:
@@ -43,6 +50,7 @@ services:
     links:
       - mysql
 ````
+examplesディレクトリ以下に同じファイルを配置してあります。
 
 同じコンテナを複数立ち上げる場合は、portsが被らないように注意する
 ````
