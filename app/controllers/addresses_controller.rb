@@ -1,6 +1,7 @@
 class AddressesController < ApplicationController
   protect_from_forgery except: [:update, :destroy, :create]
   before_action :set_address, only: [:update, :destroy]
+  after_action :allow_cross_origin
 
   # GET /addresses.json
   def index
@@ -125,5 +126,9 @@ class AddressesController < ApplicationController
         end
       end
       conditions
+    end
+
+    def allow_cross_origin
+      response.headers["Access-Control-Allow-Origin"] = "*"
     end
 end
