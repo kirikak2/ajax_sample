@@ -15,7 +15,7 @@ services:
   web:
     image: kirika/ajaxsample_web
     volumes:
-      - tmp:/myapp/tmp
+      - ./tmp:/myapp/tmp
     ports:
       - "3000:3000"
     environment:
