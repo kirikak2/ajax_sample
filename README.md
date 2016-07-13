@@ -9,8 +9,11 @@ $ exit
 ````
 
 ## 作業用のディレクトリを作成
+
+* 2番目の`mkdir tmp`は後述のDockerイメージが利用します
 ````
 mkdir workdir && cd workdir
+mkdir tmp
 ````
 * 同じマシンを利用しているユーザと被らないようにしてください。
 
