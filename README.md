@@ -8,20 +8,24 @@ $ chmod +x /usr/local/bin/docker-compose
 $ exit
 ````
 
-## docker-composeのコンテナ内でSECRET_KEY_BASEを生成する
-````
-# sudo docker run kirika/ajaxsample_web rails secret
-d8c2b0eb8773db8d913a06c3127075373932328c3b9e68ccadaae2b8de1a0aa5b7d680684db2f75d0792316c5e592256e34f67afb226ae78f567653af31f2043
-````
-* 実行回数に応じて他の人と同じ値が出てくるため、何回か実行してください。
-
 ## 作業用のディレクトリを作成
 ````
 mkdir workdir && cd workdir
 ````
 * 同じマシンを利用しているユーザと被らないようにしてください。
 
-## docker-compose.ymlを作成
+## docker-compose.ymlをコピー
+````
+$ wget https://raw.githubusercontent.com/kirikak2/ajax_sample/master/examples/docker-compose.yml
+````
+
+同じコンテナを複数立ち上げる場合は、portsが被らないように注意する。数字が同じだとDockerコンテナが起動しません。
+````
+例：
+13306:3306 ホストの13306ポートをDockerコンテナの3306ポートにマッピング
+13000:3000 ホストの13000ポートをDockerコンテナの3000ポートにマッピング
+````
+
 ````
 version: '2'
 services:
@@ -32,7 +36,7 @@ services:
   mysql:
     image: mysql:5.7
     ports:
-      - "3306:3306"
+      - "13306:3306"
     volumes_from:
       - data
     environment:
@@ -42,21 +46,13 @@ services:
     volumes:
       - tmp:/myapp/tmp
     ports:
-      - "3000:3000"
+      - "13000:3000"
     environment:
       DB_PASSWORD: password
       DB_HOST: mysql
       SECRET_KEY_BASE: (前の手順で作成したSECRETを入れる)
     links:
       - mysql
-````
-examplesディレクトリ以下に同じファイルを配置してあります。
-
-同じコンテナを複数立ち上げる場合は、portsが被らないように注意する
-````
-例：
-13306:3306 ホストの13306ポートをDockerコンテナの3306ポートにマッピング
-13000:3000 ホストの13000ポートをDockerコンテナの3000ポートにマッピング
 ````
 
 ## docker-composeを起動
@@ -73,6 +69,9 @@ $ exit
 ````
 
 ## データファイルをダウンロードし、mysqlにインポートする
+
+* `-P`オプションでポート番号を指定します。バインドするポートを変更した場合は、3306から変更してください。
+
 ````
 $ wget https://raw.githubusercontent.com/kirikak2/ajax_sample/master/db/personal_infomation_500.csv
 $ mysql -u root -p -h 127.0.0.1 -P 3306 ajax_sample_production
@@ -99,8 +98,6 @@ Records: 500  Deleted: 0  Skipped: 0  Warnings: 6500
 mysql> exit
 Bye
 ````
-
-* `-P`オプションでポート番号を指定します。バインドするポートを変更した場合は、3306から変更してください。
 
 ## 外部からURLを呼び出し、正しく応答が返ることを確認する
 ````
