@@ -53,7 +53,7 @@ services:
     environment:
       DB_PASSWORD: password
       DB_HOST: mysql
-      SECRET_KEY_BASE: (前の手順で作成したSECRETを入れる)
+      SECRET_KEY_BASE: d8c2b0eb8773db8d913a06c3127075373932328c3b9e68ccadaae2b8de1a0aa5b7d680684db2f75d0792316c5e592256e34f67afb226ae78f567653af31f2043
     links:
       - mysql
 ````
