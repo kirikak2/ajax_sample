@@ -25,8 +25,8 @@ $ wget https://raw.githubusercontent.com/kirikak2/ajax_sample/master/examples/do
 同じコンテナを複数立ち上げる場合は、portsが被らないように注意する。数字が同じだとDockerコンテナが起動しません。
 ````
 例：
-13306:3306 ホストの13306ポートをDockerコンテナの3306ポートにマッピング
-13000:3000 ホストの13000ポートをDockerコンテナの3000ポートにマッピング
+3307:3306 ホストの3307ポートをDockerコンテナの3306ポートにマッピング
+3001:3000 ホストの3001ポートをDockerコンテナの3000ポートにマッピング
 ````
 
 ````
@@ -39,7 +39,7 @@ services:
   mysql:
     image: mysql:5.7
     ports:
-      - "13306:3306"
+      - "3307:3306"
     volumes_from:
       - data
     environment:
@@ -49,7 +49,7 @@ services:
     volumes:
       - tmp:/myapp/tmp
     ports:
-      - "13000:3000"
+      - "3001:3000"
     environment:
       DB_PASSWORD: password
       DB_HOST: mysql
