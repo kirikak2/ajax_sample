@@ -10,57 +10,18 @@ $ exit
 
 ## 作業用のディレクトリを作成
 
-* 2番目の`mkdir tmp`は後述のDockerイメージが利用します
 ````
 mkdir workdir && cd workdir
-mkdir tmp
 ````
-* 同じマシンを利用しているユーザと被らないようにしてください。
 
 ## docker-compose.ymlをコピー
 ````
 $ wget https://raw.githubusercontent.com/kirikak2/ajax_sample/master/examples/docker-compose.yml
 ````
 
-同じコンテナを複数立ち上げる場合は、portsが被らないように注意する。数字が同じだとDockerコンテナが起動しません。
-````
-例：
-3307:3306 ホストの3307ポートをDockerコンテナの3306ポートにマッピング
-3001:3000 ホストの3001ポートをDockerコンテナの3000ポートにマッピング
-````
-
-````
-version: '2'
-services:
-  data:
-    image: busybox
-    volumes:
-      - /var/lib/mysql
-  mysql:
-    image: mysql:5.7
-    ports:
-      - "3307:3306"
-    volumes_from:
-      - data
-    environment:
-      MYSQL_ROOT_PASSWORD: password
-  web:
-    image: kirika/ajaxsample_web
-    volumes:
-      - tmp:/myapp/tmp
-    ports:
-      - "3001:3000"
-    environment:
-      DB_PASSWORD: password
-      DB_HOST: mysql
-      SECRET_KEY_BASE: d8c2b0eb8773db8d913a06c3127075373932328c3b9e68ccadaae2b8de1a0aa5b7d680684db2f75d0792316c5e592256e34f67afb226ae78f567653af31f2043
-    links:
-      - mysql
-````
-
 ## docker-composeを起動
 ````
-sudo /usr/local/bin/docker-compose up &
+sudo /usr/local/bin/docker-compose up -d
 ````
 
 ## dockerコンテナに入り、データベースの作成とテーブル作成を行う
@@ -73,11 +34,9 @@ $ exit
 
 ## データファイルをダウンロードし、mysqlにインポートする
 
-* `-P`オプションでポート番号を指定します。バインドするポートを変更した場合は、3306から変更してください。
-
 ````
 $ wget https://raw.githubusercontent.com/kirikak2/ajax_sample/master/db/personal_infomation_500.csv
-$ mysql -u root -p -h 127.0.0.1 -P 3306 ajax_sample_production
+$ mysql -u root -p -h 127.0.0.1 ajax_sample_production
 Enter password: (mysqlのパスワードはpassword)
 Reading table information for completion of table and column names
 You can turn off this feature to get a quicker startup with -A
