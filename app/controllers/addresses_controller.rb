@@ -1,7 +1,13 @@
 class AddressesController < ApplicationController
-  protect_from_forgery except: [:update, :destroy, :create]
+  protect_from_forgery except: [:update, :destroy, :create, :options]
   before_action :set_address, only: [:update, :destroy]
   after_action :allow_cross_origin
+
+  # OPTIONS /addresses.json
+  # OPTIONS /addresses/:id.json
+  def options
+    response.headers["Access-Control-Allow-Methods"] = "GET,POST,PUT,DELETE"
+  end
 
   # GET /addresses.json
   def index
