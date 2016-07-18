@@ -49,6 +49,7 @@ class AddressesController < ApplicationController
       end
     end
   rescue => e
+    Rails.logger.error e.backtrace.join("\n")
     render json: e.message, status: :unprocessable_entity
   end
 
@@ -81,6 +82,7 @@ class AddressesController < ApplicationController
       end
     end
   rescue ArgumentError => e
+    Rails.logger.error e.backtrace.join("\n")
     render json: e.message, status: :unprocessable_entity
   end
 
@@ -91,6 +93,7 @@ class AddressesController < ApplicationController
       format.json { head :no_content }
     end
   rescue ArgumentError => e
+    Rails.logger.error e.backtrace.join("\n")
     render json: e.message, status: :unprocessable_entity
   end
 
