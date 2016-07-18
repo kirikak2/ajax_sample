@@ -161,3 +161,12 @@ DELETE /addresses/[:id].json
 #### レスポンス
 
 ステータスコードのみ。レスポンスは返しません。
+
+# Development
+
+````
+git clone https://github.com/kirikak2/ajax_sample.git
+sudo docker-compose up -d
+````
+
+ルートのdocker-compose.ymlを使用すると、Railsサーバがdevelopmentモードで立ち上がります。
