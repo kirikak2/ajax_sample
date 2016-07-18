@@ -166,6 +166,7 @@ DELETE /addresses/[:id].json
 
 ````
 git clone https://github.com/kirikak2/ajax_sample.git
+cd ajax_sample
 sudo docker-compose up -d
 ````
 
