@@ -22,4 +22,4 @@ RUN bundle config build.nokogiri --use-system-libraries && \
     bundle install && \
     bundle clean
 
-CMD ["rails", "s", "-b", "0.0.0.0", "-p", "3000", "-e", "production"]
+CMD ["rails", "s", "-b", "0.0.0.0", "-p", "3000"]
