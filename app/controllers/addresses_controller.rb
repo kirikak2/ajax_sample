@@ -1,12 +1,13 @@
 class AddressesController < ApplicationController
   protect_from_forgery except: [:update, :destroy, :create, :options]
-  before_action :set_address, only: [:update, :destroy]
+  before_action :set_address, only: [:update, :destroy, :show]
   after_action :allow_cross_origin
 
   # OPTIONS /addresses.json
   # OPTIONS /addresses/:id.json
   def options
     response.headers["Access-Control-Allow-Methods"] = "GET,POST,PUT,DELETE"
+    response.headers["Access-Control-Allow-Headers"] = "content-type"
   end
 
   # GET /addresses.json
@@ -63,7 +64,11 @@ class AddressesController < ApplicationController
       end
     end
   rescue ArgumentError => e
-    render json: e.message, status: :unprocessable_entity
+    Rails.logger.error e.backtrace.join("\n")
+    render json: { message: e.message }, status: :unprocessable_entity
+  end
+
+  def show
   end
 
   # PATCH/PUT /addresses/1.json
@@ -100,7 +105,6 @@ class AddressesController < ApplicationController
       permit_params = [:name, :name_kana, :gender, :phone, :mail, :zipcode,
         :address1, :address2, :address3, :address4, :address5, :age]
 
-      params.fetch(:address, [ :data ])
       if params[:data].present?
         data = JSON.parse(params[:data])
         data.each_key do |key|
