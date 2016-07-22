@@ -24,6 +24,9 @@ $ wget https://raw.githubusercontent.com/kirikak2/ajax_sample/master/examples/do
 sudo /usr/local/bin/docker-compose up -d
 ````
 
+"port is already allocated"が出た場合は最後のページにある"トラブルシュート"を参考。
+
+
 ## dockerコンテナに入り、データベースの作成とテーブル作成を行う
 ````
 $ sudo /usr/local/bin/docker-compose exec web bash
@@ -171,3 +174,53 @@ sudo docker-compose up -d
 ````
 
 ルートのdocker-compose.ymlを使用すると、Railsサーバがdevelopmentモードで立ち上がります。
+
+## トラブルシュート
+
+#### "port is already allocated"が出た場合
+
+```bash
+[ec2-user@ip-... workdir]$ sudo /usr/local/bin/docker-compose up -d
+
+Creating workdir_web_1
+
+ERROR: for web  driver failed programming external connectivity on endpoint workdir_web_1 (4c44609682b3516cb52ab5dd4f1efee1e489898372e4e22f07270d1d75f72a06): Bind for 0.0.0.0:3000 failed: port is already allocated
+Traceback (most recent call last):
+  File "<string>", line 3, in <module>
+  File "compose/cli/main.py", line 63, in main
+AttributeError: 'ProjectError' object has no attribute 'msg'
+docker-compose returned -1
+```
+
+まず、"docker ps"で起動しているDockerコンテナを確認。
+
+```bash
+
+[ec2-user@ip-...  workdir]$ sudo docker ps
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                    NAMES
+d2d077140143        mysql:5.7           "docker-entrypoint.sh"   18 seconds ago      Up 17 seconds       0.0.0.0:3306->3306/tcp   workdir_mysql_1
+7ec986eead4b        koduki/cgi4oit      "httpd-foreground"       14 hours ago        Up 14 hours         0.0.0.0:3000->80/tcp     cgi4oit
+
+
+[ec2-user@ip-... workdir]$ sudo docker stop cgi4oit
+cgi4oit
+
+```
+
+"dokcer stop"　で重複しているポートのコンテナを停止する。
+
+```bash
+[ec2-user@ip-... workdir]$ sudo docker stop cgi4oit
+cgi4oit
+```
+
+コンテナを再起動
+
+```bash
+[ec2-user@ip-xxx workdir]$ sudo /usr/local/bin/docker-compose stop
+Stopping workdir_mysql_1 ... done
+[ec2-user@ip-xxx workdir]$ sudo /usr/local/bin/docker-compose start
+Starting data ... done
+Starting mysql ... done
+Starting web ... done
+```
