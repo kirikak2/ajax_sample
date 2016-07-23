@@ -56,7 +56,7 @@ owners.
 
 Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
 
-mysql> load data local infile "/tmp/personal_infomation_500.csv" into table addresses fields terminated by ',';
+mysql> load data local infile "personal_infomation_500.csv" into table addresses fields terminated by ',';
 Query OK, 500 rows affected, 6500 warnings (0.02 sec)
 Records: 500  Deleted: 0  Skipped: 0  Warnings: 6500
 
