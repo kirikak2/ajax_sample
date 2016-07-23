@@ -105,7 +105,7 @@ GET /addresses.json
 |page|ページ指定（perを指定した時のみ有効）1から開始|/addresses.json?per=10&page=2|
 |name|検索条件（部分一致）|/addresses.json?name=xxx|
 |name_kana|検索条件（部分一致）|/addresses.json?name_kana=xxx|
-|email|検索条件（部分一致）|/addresses.json?email=xxx|
+|mail|検索条件（部分一致）|/addresses.json?email=xxx|
 |address1|検索条件（部分一致）|/addresses.json?address1=xxx|
 |age|検索条件（完全一致）|/addresses.json?age=xx|
 |mode|検索条件を複数指定した時に、or条件で結合するか、and条件で結合するかを指定、デフォルトはand|/addresses.json?name=xxx&email=yyy&mode=or|
