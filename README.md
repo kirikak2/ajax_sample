@@ -38,7 +38,7 @@ $ exit
 ## データファイルをダウンロードし、mysqlにインポートする
 
 ````
-$ wget https://raw.githubusercontent.com/kirikak2/ajax_sample/master/db/personal_infomation_500.csv
+$ wget https://raw.githubusercontent.com/kirikak2/ajax_sample/master/examples/personal_infomation_500.csv
 $ mysql -u root -p -h 127.0.0.1 ajax_sample_production
 Enter password: (mysqlのパスワードはpassword)
 Reading table information for completion of table and column names
