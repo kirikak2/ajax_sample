@@ -25,6 +25,6 @@ production:
   adapter: mysql2
   encoding:  utf8
   pool: 5
-  username: root
+  username: <%= ENV['DB_USER'] || "root" %>
   password: <%= ENV['DB_PASSWORD'] || "password" %>
   host: <%= ENV['DB_HOST'] || 'localhost' %>
