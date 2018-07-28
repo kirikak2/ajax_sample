@@ -1,7 +1,8 @@
 FROM ruby:2.4.4-slim
 ENV BUILD_PACKAGES="ruby-dev bash build-essential" \
     DEV_PACKAGES="libxml2-dev libxslt-dev tzdata libv8-dev default-libmysqlclient-dev libsqlite3-dev" \
-    RUBY_PACKAGES="ruby-json"
+    RUBY_PACKAGES="ruby-json" \
+    RAILS_ENV="production"
 
 
 RUN apt-get update && \
