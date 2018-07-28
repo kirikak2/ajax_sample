@@ -21,7 +21,7 @@ $ wget https://raw.githubusercontent.com/kirikak2/ajax_sample/master/examples/do
 
 ## docker-composeを起動
 ````
-sudo /usr/local/bin/docker-compose up -d
+docker-compose up -d
 ````
 
 "port is already allocated"が出た場合は最後のページにある"トラブルシュート"を参考。
@@ -29,7 +29,7 @@ sudo /usr/local/bin/docker-compose up -d
 
 ## dockerコンテナに入り、データベースの作成とテーブル作成を行う
 ````
-$ sudo /usr/local/bin/docker-compose exec web bash
+$ docker-compose exec web bash
 $ RAILS_ENV=production bundle exec rake db:create
 $ RAILS_ENV=production bundle exec rake db:migrate
 $ exit
@@ -180,7 +180,7 @@ sudo docker-compose up -d
 #### "port is already allocated"が出た場合
 
 ```bash
-[ec2-user@ip-... workdir]$ sudo /usr/local/bin/docker-compose up -d
+[ec2-user@ip-... workdir]$ sudo docker-compose up -d
 
 Creating workdir_web_1
 
@@ -217,9 +217,9 @@ cgi4oit
 コンテナを再起動
 
 ```bash
-[ec2-user@ip-xxx workdir]$ sudo /usr/local/bin/docker-compose stop
+[ec2-user@ip-xxx workdir]$ sudo docker-compose stop
 Stopping workdir_mysql_1 ... done
-[ec2-user@ip-xxx workdir]$ sudo /usr/local/bin/docker-compose start
+[ec2-user@ip-xxx workdir]$ sudo docker-compose start
 Starting data ... done
 Starting mysql ... done
 Starting web ... done
