@@ -1,10 +1,10 @@
-FROM ruby:2.4.4-slim
+FROM ruby:2.6.3-slim
 ENV BUILD_PACKAGES="ruby-dev bash build-essential" \
     DEV_PACKAGES="libxml2-dev libxslt-dev tzdata libv8-dev default-libmysqlclient-dev libsqlite3-dev" \
     RUBY_PACKAGES="ruby-json"
 
 RUN apt-get update && \
-    apt-get upgrade && \
+    apt-get -y upgrade && \
     apt-get -y install $BUILD_PACKAGES $DEV_PACKAGES $RUBY_PACKAGES
 
 
