@@ -83,7 +83,7 @@ class AddressesController < ApplicationController
     end
   rescue ArgumentError => e
     Rails.logger.error e.backtrace.join("\n")
-    render json: e.message, status: :unprocessable_entity
+    render json: { error: e.message }, status: :unprocessable_entity
   end
 
   # DELETE /addresses/1.json
@@ -94,7 +94,7 @@ class AddressesController < ApplicationController
     end
   rescue ArgumentError => e
     Rails.logger.error e.backtrace.join("\n")
-    render json: e.message, status: :unprocessable_entity
+    render json: { error: e.message }, status: :unprocessable_entity
   end
 
   private
@@ -105,18 +105,9 @@ class AddressesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def address_params
-      permit_params = [:name, :name_kana, :gender, :phone, :mail, :zipcode,
+      permit_params = [:id, :name, :name_kana, :gender, :phone, :mail, :zipcode,
         :address1, :address2, :address3, :address4, :address5, :age]
-
-      if params[:data].present?
-        data = JSON.parse(params[:data])
-        data.each_key do |key|
-          raise ArgumentError, "Bad parameter" if permit_params.exclude?(key.to_sym)
-        end
-      else
-        raise ArgumentError, "No Data"
-      end
-      data
+      params.require(:data).permit(permit_params)
     end
 
     def join_condition(conditions, name, column_type, and_or_or)
