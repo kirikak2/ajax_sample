@@ -7,7 +7,7 @@ servers:
   - url: http://localhost:3000
     description: 開発用ローカルサーバ
 paths:
-  /addresses:
+  /addresses.json:
     get:
       summary: 住所録の一覧を返す
       tags:
@@ -196,6 +196,7 @@ components:
           description: 番地２
           example: 1-1
         address5:
+          nullable: true
           type: string
           description: 番地３
         age:
