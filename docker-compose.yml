@@ -23,3 +23,12 @@ services:
       SECRET_KEY_BASE: d8c2b0eb8773db8d913a06c3127075373932328c3b9e68ccadaae2b8de1a0aa5b7d680684db2f75d0792316c5e592256e34f67afb226ae78f567653af31f2043
     links:
       - mysql
+  apidoc:
+    image: redocly/redoc:latest
+    container_name: apidoc
+    volumes:
+      - ./docs/ajax_sample_openapi.yml:/usr/share/nginx/html/docs/ajax_sample_openapi.yml
+    environment:
+      SPEC_URL: /docs/ajax_sample_openapi.yml
+    ports:
+      - "8000:80"
